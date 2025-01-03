@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgb(192, 26, 26);
+            font: normal 15pt Arial;
+        }
+
+        header {
+            color: white;
+        }
+
+        div {
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        section {
+            background-color: beige;
+            border-radius: 10px;
+            padding: 15px;
+            width: 500px;
+            margin: auto;
+            box-shadow: 3px 3px 10px black;
+        }
+
+        footer {
+            color: aliceblue;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .titulo {
+            color: aliceblue;
+            text-align: center;
+        }
+
+        .imagem {
+            border-radius: 50px;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body onload="carregar()">
+    <header>
+        <h1 class="titulo">Hora do Dia</h1>
+    </header>
+
+    <section>
+        <div id="msg"></div>
+        <div id="foto">
+            <img class="imagem" id="imagem" src="manha.jpeg" alt="Foto do Dia">
+        </div>
+        <div id="Data">Data</div>
+    </section>
+
+    <footer>
+        <p>&copy;Vitin</p>
+    </footer>
+
+    <script>
+        function carregar() {
+
+            var msg = document.getElementById('msg');
+            var img = document.getElementById('imagem');
+            var dt = document.getElementById('Data');
+            
+            function atualizarHora() {
+
+                var data = new Date();
+                var Hora = String(data.getHours()).padStart(2, '0');
+                var Minutos = String(data.getMinutes()).padStart(2, '0');
+                var dia = String(data.getDate()).padStart(2, '0');
+                var mes = String(data.getMonth() + 1).padStart(2, '0'); // Os meses começam do zero
+                var ano = data.getFullYear();
+                var dataFormatada = `${dia}/${mes}/${ano}`;
+                
+                msg.innerHTML = `${Hora}:${Minutos}h`;
+                dt.innerHTML = `${dataFormatada}`;
+
+                if (Hora >= 4 && Hora < 12) {
+                    img.src = 'manha.jpeg';
+                    document.body.style.background = 'blue';
+                } else if (Hora >= 12 && Hora < 17) {
+                    img.src = 'tarde.jpeg';
+                    document.body.style.background = 'orange';
+                } else {
+                    img.src = 'noite.jpeg';
+                    document.body.style.background = 'black';
+                }
+            }
+
+            // Atualiza a hora imediatamente
+            atualizarHora();
+            // Atualiza a hora a cada minuto
+            setInterval(atualizarHora, 60000);
+        }
+    </script>
+</body>
+
+</html>
